@@ -14,14 +14,14 @@ app.get("/", (req, res) => {
 
 app.use("/public", express.static(__dirname + "/public"));
 
-let objectJson = { message: "Hello json" };
-
-app.get("/json", (req, res) =>
-  res.json(
-    process.env.MESSAGE_STYLE == "uppercase"
-      ? Object.keys(objectJson).array.forEach((element) => {
-          objectJson[element] = objectJson[element].toUpperCase();
-        })
-      : objectJson
-  )
-);
+app.get("/json", (req, res) => {
+  let objectJson = { message: "Hello json" };
+  if (process.env.MESSAGE_STYLE == "uppercase") {
+    Object.keys(objectJson).array.forEach((element) => {
+      objectJson[element] = objectJson[element].toUpperCase();
+    });
+  } else {
+    objectJson;
+  }
+  res.json(objectJson);
+});
