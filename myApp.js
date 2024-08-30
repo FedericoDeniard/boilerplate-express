@@ -20,8 +20,12 @@ app.get("/json", (req, res) => {
     Object.keys(objectJson).forEach((element) => {
       objectJson[element] = objectJson[element].toUpperCase();
     });
-  } else {
-    objectJson;
   }
   res.json(objectJson);
+});
+
+app.use((req, res, next) => {
+  let string = req.method + " " + req.path + " - " + req.ip;
+  console.log(string);
+  next();
 });
