@@ -1,3 +1,4 @@
+const bodyParser = require("body-parser");
 let express = require("express");
 let app = express();
 require("dotenv").config();
@@ -17,6 +18,8 @@ app.use((req, res, next) => {
 
 // Middleware con archivo
 app.use("/public", express.static(__dirname + "/public"));
+
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Respuesta con archivo
 app.get("/", (req, res) => {
@@ -51,6 +54,7 @@ app.get("/:word/echo", (req, res) => {
   res.json({ echo: req.params.word });
 });
 
+// Encadenar metodos, y obtener parámetros name?first=Mick&last=Jagger
 app
   .route("/name")
   .get((req, res) => {
