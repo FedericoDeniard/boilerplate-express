@@ -8,18 +8,22 @@ module.exports = app;
 
 absolutePath = __dirname + "/views/index.html";
 
+// Middleware
 app.use((req, res, next) => {
   let string = req.method + " " + req.path + " - " + req.ip;
   console.log(string);
   next();
 });
 
+// Middleware con archivo
 app.use("/public", express.static(__dirname + "/public"));
 
+// Respuesta con archivo
 app.get("/", (req, res) => {
   res.sendFile(absolutePath);
 });
 
+// Variables de entorno
 app.get("/json", (req, res) => {
   let objectJson = { message: "Hello json" };
   if (process.env.MESSAGE_STYLE == "uppercase") {
@@ -30,6 +34,7 @@ app.get("/json", (req, res) => {
   res.json(objectJson);
 });
 
+// Encadenamiento de funciones
 app.get(
   "/now",
   (req, res, next) => {
@@ -41,6 +46,13 @@ app.get(
   }
 );
 
+// Obtener parámetros
 app.get("/:word/echo", (req, res) => {
   res.json({ echo: req.params.word });
 });
+
+app.route
+  .get("/name", (req, res) => {
+    res.json({ name: req.query.first + " " + req.query.last });
+  })
+  .post();
