@@ -8,6 +8,12 @@ module.exports = app;
 
 absolutePath = __dirname + "/views/index.html";
 
+app.use((req, res, next) => {
+  let string = req.method + " " + req.path + " - " + req.ip;
+  console.log(string);
+  next();
+});
+
 app.get("/", (req, res) => {
   res.sendFile(absolutePath);
 });
@@ -22,10 +28,4 @@ app.get("/json", (req, res) => {
     });
   }
   res.json(objectJson);
-});
-
-app.use((req, res, next) => {
-  let string = req.method + " " + req.path + " - " + req.ip;
-  console.log(string);
-  next();
 });
