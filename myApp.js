@@ -60,4 +60,7 @@ app
   .get((req, res) => {
     res.json({ name: req.query.first + " " + req.query.last });
   })
-  .post();
+  .post((req, res) => {
+    console.log(req);
+    res.json({ name: req.body.first + " " + req.body.last });
+  });
